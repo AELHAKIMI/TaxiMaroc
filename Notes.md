@@ -1,0 +1,2 @@
+ **requirements**
+package django-multiselectfield
