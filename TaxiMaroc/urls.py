@@ -19,5 +19,5 @@ from django.conf.urls import url
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^permissions/', include('permissions.urls') ),
+    url(r'^', include('permissions.urls') ),
 ]

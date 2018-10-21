@@ -1,0 +1,48 @@
+{% extends '../layout.html'%}
+{% block body %}
+
+<div class="table-responsive table-bordered border-0">
+    <table id="tablePermission" class="table table-sm table-sorted data-sortable" >
+        <thead>
+            <tr >
+                {% for title in permission_titles %}
+                <th class="  text-center bg-dark " style="color:#c0c8d6;">{{ title }}</th>
+                {%endfor%}
+                <th colspan="2"  class="text-center bg-light text-gray-dark" >Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if all_permissions  %}
+            {% for permission in all_permissions  %}
+                <tr class="text-center"> 
+                    <td >{{permission.permission_id}}</td>               
+                    <td>{{permission.chauffeur.nom_chauffeur}}</td>                
+                    <td>{{permission.taxi.numero_taxi}}</td>                
+                    <td>{{permission.taxi.type_taxi}}</td>                
+                    <td>{{ permission.date_debut | date:"d/m/Y" }} {{ permission.date_debut | time:"H:i" }}</td>  
+                    <td>{{ permission.date_fin | date:"d/m/Y" }} {{ permission.date_fin | time:"H:i" }}</td> 
+                    <td> <a href="{% url 'permission-update-view' permission.pk %}"> <i class="fa fa-pencil fa-2x "></i> </a></td>
+                    <td> <a href="{% url 'permission-delete-view' permission.pk %}"> <i class="fa fa-trash-o fa-2x  text-danger"></i> </a></td>             
+                </tr>
+            {% endfor %} 
+            {% endif %}
+            {% if permission %}
+            <tr class="text-center"> 
+                    <td>{{permission.permission_id}}</td>               
+                    <td>{{permission.chauffeur.nom_chauffeur}}</td>                
+                    <td>{{permission.taxi.numero_taxi}}</td>                
+                    <td>{{permission.taxi.type_taxi}}</td>                
+                    <td>{{ permission.date_debut | date:"d/m/Y" }} {{ permission.date_debut | time:"H:i" }}</td>  
+                    <td>{{ permission.date_fin | date:"d/m/Y" }} {{ permission.date_fin | time:"H:i" }}</td>
+                    <td> <a href="{% url 'permission-update-view' permission.pk %}"> <i class="fa fa-pencil fa-2x "></i> </a></td>
+                    <td> <a href="{% url 'permission-delete-view' permission.pk %}"> <i class="fa fa-trash-o fa-2x  text-danger"></i> </a></td>              
+                </tr>
+            {% endif %}
+                    
+            
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
