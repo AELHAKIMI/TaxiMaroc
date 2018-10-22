@@ -4,13 +4,39 @@
 {% load widget_tweaks %}
 <form action="" method="POST" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
+    <table>
+        <tr>
+          <td class=" text-left"> <label class="label">{{form.chauffeur.label}}</label> </td>
+          <td>{{form.chauffeur}}</td>
+          <td><span class="text-danger small">{{form.chauffeur.errors | striptags}}</span></td>
+        </tr>
+        <tr>
+          <td class=" text-left"> <label class="label">{{form.taxi.label}}</label> </td>
+          <td>{{form.taxi}}</td>
+          <td><span class="text-danger small">{{form.taxi.errors | striptags}}</span></td>
+        </tr>
+        <tr>
+          <td class=" text-left"> <label class="label">{{form.date_debut.label}}</label> </td>
+          <td>{{form.date_debut}}</td>
+          <td><span class="text-danger small">{{form.date_debut.errors | striptags}}</span></td>
+        </tr>
+        <tr>
+          <td class=" text-left"> <label class="label">{{form.date_fin.label}}</label> </td>
+          <td>{{form.date_fin}}</td>
+          <td><span class="text-danger small">{{form.date_fin.errors|striptags}}</span></td>
+        </tr>
+        <tr>
+          <td class=" text-left"> <label class="label">{{form.destination.label}}</label> </td>
+          <td>{{form.destination}}</td>
+          <td><span class="text-danger small">{{form.destination.errors | striptags}}</span></td>
+        </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" class="btn btn-success" value="Enregistrer"></td>
+      </tr>
+    </table>
 
-    {% include "../form_template.html" %}
-    <div class="form-group">
-        <div class="col-sm-10">
-            <button type="submit" class="btn btn-success "> Enregistrer</button>
-        </div>
-    </div>
+   
 </form>
 {% endblock %}
 
