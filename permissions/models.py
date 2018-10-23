@@ -42,11 +42,12 @@ class Taxi(models.Model):
     class Meta:
         unique_together = ('numero_taxi', 'type_taxi')
     
+
+    def selected_typeTaxi_label(self):
+        return [label for value,label in type_taxi_choice if value in self.type_taxi]
+
     def __str__(self):
-        return self.numero_taxi 
-
-    
-
+        return self.numero_taxi + ' ' + ''.join(self.selected_typeTaxi_label())
 @python_2_unicode_compatible
 class Chauffeur(models.Model):
 
@@ -64,7 +65,7 @@ class Chauffeur(models.Model):
     isPrivate           = models.BooleanField(verbose_name='Privé', default=False)
 
     def __str__(self):
-        return self.permis_chauffeur + ' ' + self.nom_chauffeur + ' ' + ','.join(self.selected_typePermis_labels())
+        return self.permis_chauffeur + ' ' + self.nom_chauffeur 
 
     def selected_typePermis_labels(self):
         return [label for value,label in type_taxi_choice if value in self.type_permis]

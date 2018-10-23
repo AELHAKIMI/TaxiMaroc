@@ -48,3 +48,10 @@ display: inline-block !important
 .btn{
     font-weight: 600;
 }
+.select2-selection__rendered{
+    height: 41px;
+    margin-top: 0px;
+}
+.select2-selection{
+    padding-top: 0;
+}

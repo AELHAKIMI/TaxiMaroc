@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from dal import autocomplete
 from .models import Chauffeur, Taxi, Permission
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from . import forms
+from django.utils.html import format_html
 
 # Create your views here.
 class IndexView(generic.ListView):
@@ -11,7 +13,32 @@ class IndexView(generic.ListView):
     context_object_name = 'all_permissions'
     def get_queryset(self):
         return Permission.objects.all()
+############################ Chauffeur Views
+class ChauffeurAutocompleteView(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Chauffeur.objects.filter(isActive = True)
+        if self.q:
+            qs = qs.filter(nom_chauffeur__istartswith = self.q)
+        return qs
+    def get_result_label(self, item):
+        return format_html('{}', item.nom_chauffeur)
+    
+    def get_selected_result_label(self, item):
+        return item.permis_chauffeur + ' ' + item.nom_chauffeur
 
+
+############################# Taxi Views
+class TaxiAutocompleteView(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Taxi.objects.all()
+        if self.q:
+            qs = qs.filter(numero_taxi__istartswith = self.q)
+        return qs
+    def get_result_label(self, item):
+        return format_html('{}', item)
+    
+    def get_selected_result_label(self, item):
+        return str(item)
 
 ############################# Permission Views
 permission_titles = ('Numero', 'Chauffeur', 'Taxi', 'Type Taxi', 'Date debut', 'Date fin')

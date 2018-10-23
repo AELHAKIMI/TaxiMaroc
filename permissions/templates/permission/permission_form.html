@@ -1,10 +1,7 @@
 {% extends "layout.html" %}
-
-
-
-
 {% block body %}
 {% load widget_tweaks %}
+
 <form action="" method="POST" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
     <table class="table table-sm table-model-form" style="font-size:11pt; font-weight: 600;" >
@@ -46,6 +43,7 @@
 
 {% block scripts %}
 
+{{ form.media }}
 <script>
  $(function() {
     
