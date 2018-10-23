@@ -16,6 +16,7 @@ from django import forms
 class CustomAdmin(admin.ModelAdmin):
     readonly_fields = ('permission_id',)    
     fields = ( 'permission_id','chauffeur','taxi', 'date_debut', 'date_fin', 'destination',)
+    raw_id_fields = ('chauffeur', 'taxi',)
 
     def get_fields(self, request, obj=None):
         fields = super(CustomAdmin, self).get_fields(request, obj)

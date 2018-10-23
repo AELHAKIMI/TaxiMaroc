@@ -9,9 +9,9 @@ class ChauffeurForm(ModelForm):
     readonly = ('permission_id',)
     fields = '__all__'
 
-class PermissionForm(ModelForm):
-    # chauffeur = forms.ModelChoiceField(queryset=Chauffeur.objects.all(), widget=forms.TextInput())
-    
+
+
+class PermissionForm(ModelForm): 
     class Meta:
         model = Permission
         fields = '__all__'

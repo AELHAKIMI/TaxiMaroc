@@ -31,7 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'widget_tweaks', 
+    'widget_tweaks',
+    'dal',
+    'dal_select2', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'permissions',
-    'multiselectfield',
+    
+    
 ]
 
 MIDDLEWARE = [

@@ -1,4 +1,7 @@
+from __future__ import unicode_literals
+
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from datetime import date
 from multiselectfield import MultiSelectField
 from django.urls import reverse
@@ -21,6 +24,7 @@ def foo():
 
 
 # Create your models here.
+@python_2_unicode_compatible
 class Taxi(models.Model):
     
     numero_taxi     = models.CharField(max_length=32, verbose_name='Numero Taxi')
@@ -39,11 +43,11 @@ class Taxi(models.Model):
         unique_together = ('numero_taxi', 'type_taxi')
     
     def __str__(self):
-        return self.numero_taxi + ' ' + self.type_taxi
+        return self.numero_taxi 
 
     
 
-
+@python_2_unicode_compatible
 class Chauffeur(models.Model):
 
     type_permis_choice = type_taxi_choice
@@ -73,7 +77,7 @@ class Chauffeur(models.Model):
         
         
 
-
+@python_2_unicode_compatible
 class Permission(models.Model):
     
     permission_id   = models.CharField(max_length = 20, default = foo, editable=False , unique = True)

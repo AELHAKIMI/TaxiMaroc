@@ -1,6 +1,6 @@
 .navbar{
     border-radius: 0px;
-    margin-bottom: 10px;
+    
     padding: 5px ;
     font-size: 13pt;
 }
@@ -29,4 +29,22 @@ input[type=number]::-webkit-outer-spin-button {
 min-width: 150px !important;
 display: inline-block !important
 
+}
+.table-model-form td{
+    border-top: 0;
+    border-bottom: 1px solid darkgray;
+    padding-top: 10px;
+}
+.table-model-form tr:last-child td{
+    border-top: 0;
+    border-bottom: 0;
+    
+}
+.container{
+    background-color: #fcfcfc;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.btn{
+    font-weight: 600;
 }
