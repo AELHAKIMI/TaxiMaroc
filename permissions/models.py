@@ -1,10 +1,13 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.db.models.signals import pre_save
 from django.utils.encoding import python_2_unicode_compatible
+
 from datetime import date
 from multiselectfield import MultiSelectField
 from django.urls import reverse
+from django.core.validators import MaxValueValidator
 
 
 #variables global ggt
@@ -18,7 +21,10 @@ Sexe_Choice = (
     ('M', 'MASCULIN',),
     ('I', 'INDETERMINE',),
 )
-
+periode_choice=(
+    ('Ma', 'Matin',),
+    ('So', 'Soir',),
+)
 def foo():
     return increment_permission_id()
 
@@ -69,24 +75,19 @@ class Chauffeur(models.Model):
 
     def selected_typePermis_labels(self):
         return [label for value,label in type_taxi_choice if value in self.type_permis]
-        
-    
-    
-        
-
-        
-        
-        
 
 @python_2_unicode_compatible
 class Permission(models.Model):
+   
     
-    permission_id   = models.CharField(max_length = 20, default = foo, editable=False , unique = True)
-    chauffeur       = models.ForeignKey(Chauffeur, on_delete=models.PROTECT, verbose_name='Chauffeur')
-    taxi            = models.ForeignKey(Taxi, on_delete=models.PROTECT, verbose_name='Taxi')
-    date_debut      = models.DateTimeField(verbose_name='Date debut ')
-    date_fin        = models.DateTimeField(verbose_name='Date fin')
-    destination     = models.CharField(max_length=128, verbose_name='Destination',null=True, blank=True)
+    permission_id       = models.CharField(max_length = 20, default = foo , editable=False , unique = True)
+    chauffeur           = models.ForeignKey(Chauffeur, on_delete=models.PROTECT, verbose_name='Chauffeur')
+    taxi                = models.ForeignKey(Taxi, on_delete=models.PROTECT, verbose_name='Taxi')
+    date_permission     = models.DateField(verbose_name='Date de permission')
+    destination         = models.CharField(max_length=128, verbose_name='Destination',null=True, blank=True)
+    duree_permission    = models.PositiveIntegerField(verbose_name='Durée de permission',validators = [MaxValueValidator(9)], null=True, blank=True)
+    periode_permission  = models.CharField(max_length=2,choices=periode_choice, verbose_name='Periode de permission', null=True, blank=True)
+
 
     def get_absolute_url(self):
         return reverse('permission-detail-view', kwargs={'pk': self.pk})
@@ -94,6 +95,9 @@ class Permission(models.Model):
 
     def __str__(self):
         return str(self.permission_id) + ' ' + self.chauffeur.nom_chauffeur + ' ' + self.taxi.numero_taxi
+
+    def increment_permission_id(sender, instance, **kwargs):
+        pass
 
 def increment_permission_id():
     last_permission = Permission.objects.all().order_by('id').last()

@@ -18,7 +18,7 @@ class ChauffeurAutocompleteView(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Chauffeur.objects.filter(isActive = True)
         if self.q:
-            qs = qs.filter(nom_chauffeur__istartswith = self.q)
+            qs = qs.filter(nom_chauffeur__contains = self.q)
         return qs
     def get_result_label(self, item):
         return format_html('{}', item.nom_chauffeur)
@@ -32,7 +32,7 @@ class TaxiAutocompleteView(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Taxi.objects.all()
         if self.q:
-            qs = qs.filter(numero_taxi__istartswith = self.q)
+            qs = qs.filter(numero_taxi__contains = self.q)
         return qs
     def get_result_label(self, item):
         return format_html('{}', item)
