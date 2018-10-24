@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.db.models.signals import pre_save
 from django.utils.encoding import python_2_unicode_compatible
-
+from django.dispatch import receiver
 from datetime import date
 from multiselectfield import MultiSelectField
 from django.urls import reverse
@@ -96,9 +96,6 @@ class Permission(models.Model):
     def __str__(self):
         return str(self.permission_id) + ' ' + self.chauffeur.nom_chauffeur + ' ' + self.taxi.numero_taxi
 
-    def increment_permission_id(sender, instance, **kwargs):
-        pass
-
 def increment_permission_id():
     last_permission = Permission.objects.all().order_by('id').last()
     if not last_permission:
@@ -109,3 +106,17 @@ def increment_permission_id():
     new_permission_id   = str(date.today().strftime('%y%m%d') + str(new_permission_int).zfill(4))
     return new_permission_id
     
+@receiver(pre_save, sender=Permission)
+def increment_permission_id(sender, instance, **kwargs):
+    y = instance.date_pemission.strftime('%y')
+    
+    last_permission = Permission.objects.filter(permission_id__isstatwith = y).order_by('id').last()
+    if not last_permission:
+        return 
+    permission_id   = last_permission.permission_id
+    permission_int  = int(permission_id[0:4])
+    new_permission_int = permission_int + 1
+    new_permission_id  =str( y + str(new_permission_int).zfill(7))
+
+
+ 
