@@ -14,7 +14,7 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Permission.objects.all()
 ############################ Chauffeur Views
-class ChauffeurAutocompleteView(autocomplete.Select2QuerySetView):
+class ChauffeurAutoCompleteView(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Chauffeur.objects.filter(isActive = True)
         if self.q:
@@ -28,7 +28,7 @@ class ChauffeurAutocompleteView(autocomplete.Select2QuerySetView):
 
 
 ############################# Taxi Views
-class TaxiAutocompleteView(autocomplete.Select2QuerySetView):
+class TaxiAutoCompleteView(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Taxi.objects.all()
         if self.q:
@@ -41,16 +41,13 @@ class TaxiAutocompleteView(autocomplete.Select2QuerySetView):
         return str(item)
 
 ############################# Permission Views
-permission_titles = ('Numero', 'Chauffeur', 'Taxi', 'Type Taxi', 'Date debut', 'Date fin')
-class PermissionListView(generic.ListView):
-       
+permission_titles = ('Numero', 'Chauffeur', 'Taxi', 'Date', 'Destination', 'Duree', 'Periode')
+class PermissionListView(generic.ListView):       
     template_name = 'permission/permissions.html'
     context_object_name = 'all_permissions'
     def get_context_data(self, **kwargs):
-        context = super(PermissionListView, self).get_context_data(**kwargs)
-        
-        context.update({
-            
+        context = super(PermissionListView, self).get_context_data(**kwargs)        
+        context.update({            
             'permission_titles': permission_titles,                                  
         })
         return context
@@ -64,15 +61,23 @@ class PermissionCreateView(CreateView):
     form_class = forms.PermissionForm
 
 
+
 class PermissionDetailView(generic.DetailView):
     model = Permission 
     context_object_name = 'permission'    
     template_name = 'permission/permissions.html'
+    def get_context_data(self, **kwargs):
+        context = super(PermissionDetailView, self).get_context_data(**kwargs)        
+        context.update({            
+            'permission_titles': permission_titles,                                  
+        })
+        return context
 
 class PermissionUpdateView(UpdateView):
     model = Permission
     fields = '__all__'
     template_name = 'permission/permission_form.html'
+
  
     # form_class = forms.PermissionForm
 

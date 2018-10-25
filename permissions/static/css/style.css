@@ -55,3 +55,6 @@ display: inline-block !important
 .select2-selection{
     padding-top: 0;
 }
+.fa-2x, .fa {
+    font-size: 12px;
+}

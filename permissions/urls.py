@@ -11,12 +11,12 @@ urlpatterns = [
     url(r'^permission/(?P<pk>[0-9]+)/delete$', views.PermissionDeleteView.as_view(),name='permission-delete-view'),
     url(
         r'^chauffeur-autocomplete/$',
-        views.ChauffeurAutocompleteView.as_view(),
+        views.ChauffeurAutoCompleteView.as_view(),
         name='chauffeur-autocomplete',
     ),
     url(
         r'^taxi-autocomplete/$',
-        views.TaxiAutocompleteView.as_view(),
+        views.TaxiAutoCompleteView.as_view(),
         name='taxi-autocomplete',
     ),
   

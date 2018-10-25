@@ -4,18 +4,9 @@ from django import forms
 
 # Register your models here.
 
-# class CustomPermissionForm(forms.ModelForm):
-    
-#     class Meta:
-#         model = Permission
-#         fields = ('chauffeur','taxi', 'date_debut', 'date_fin', 'destination',)
-# class CustomAdmin(admin.ModelAdmin):
-#     readonly_fields = ('permission_id',)
-#     form = CustomPermissionForm
-
 class CustomAdmin(admin.ModelAdmin):
     readonly_fields = ('permission_id',)    
-    fields = ( 'permission_id','chauffeur','taxi', 'date_debut', 'date_fin', 'destination',)
+    fields = ( 'permission_id','chauffeur','taxi', 'date_permission', 'destination', 'duree_permission','periode_permission',)
     raw_id_fields = ('chauffeur', 'taxi',)
 
     def get_fields(self, request, obj=None):

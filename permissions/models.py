@@ -25,8 +25,8 @@ periode_choice=(
     ('Ma', 'Matin',),
     ('So', 'Soir',),
 )
-def foo():
-    return increment_permission_id()
+# def foo():
+#     return increment_permission_id()
 
 
 # Create your models here.
@@ -80,7 +80,7 @@ class Chauffeur(models.Model):
 class Permission(models.Model):
    
     
-    permission_id       = models.CharField(max_length = 20, default = foo , editable=False , unique = True)
+    permission_id       = models.CharField(max_length = 20, default = '000000' , editable=False , unique = True)
     chauffeur           = models.ForeignKey(Chauffeur, on_delete=models.PROTECT, verbose_name='Chauffeur')
     taxi                = models.ForeignKey(Taxi, on_delete=models.PROTECT, verbose_name='Taxi')
     date_permission     = models.DateField(verbose_name='Date de permission')
@@ -96,27 +96,30 @@ class Permission(models.Model):
     def __str__(self):
         return str(self.permission_id) + ' ' + self.chauffeur.nom_chauffeur + ' ' + self.taxi.numero_taxi
 
-def increment_permission_id():
-    last_permission = Permission.objects.all().order_by('id').last()
-    if not last_permission:
-        return date.today().strftime('%y%m%d') + '0000'
-    l_permission_id = last_permission.permission_id
-    permission_int  = int(l_permission_id[6:10])
-    new_permission_int  = permission_int + 1
-    new_permission_id   = str(date.today().strftime('%y%m%d') + str(new_permission_int).zfill(4))
-    return new_permission_id
+# def increment_permission_id():
+#     last_permission = Permission.objects.all().order_by('id').last()
+#     if not last_permission:
+#         return date.today().strftime('%y%m%d') + '0000'
+#     l_permission_id = last_permission.permission_id
+#     permission_int  = int(l_permission_id[6:10])
+#     new_permission_int  = permission_int + 1
+#     new_permission_id   = str(date.today().strftime('%y%m%d') + str(new_permission_int).zfill(4))
+#     return new_permission_id
     
 @receiver(pre_save, sender=Permission)
 def increment_permission_id(sender, instance, **kwargs):
-    y = instance.date_pemission.strftime('%y')
-    
-    last_permission = Permission.objects.filter(permission_id__isstatwith = y).order_by('id').last()
-    if not last_permission:
-        return 
-    permission_id   = last_permission.permission_id
-    permission_int  = int(permission_id[0:4])
-    new_permission_int = permission_int + 1
-    new_permission_id  =str( y + str(new_permission_int).zfill(7))
+    if instance._state.adding:
+        y = instance.date_permission.strftime('%y')        
+        last_permission = Permission.objects.filter(permission_id__startswith = y).order_by('id').last()
+        if not last_permission:
+            instance.permission_id =  y  + '0000000'
+            return
+        permission_id   = last_permission.permission_id
+        permission_int  = int(permission_id[2:9])
+        new_permission_int = permission_int + 1
+        instance.permission_id  =str( y + str(new_permission_int).zfill(7))
+
+        
 
 
  

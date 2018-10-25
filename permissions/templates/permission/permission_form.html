@@ -4,6 +4,7 @@
 
 <form action="" method="POST" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
+    
     <table class="table table-sm table-model-form" style="font-size:11pt; font-weight: 600;" >
         <tr class="border-0 border-bottom">
           <td class="" style="width: 16.66%"> <label class="label" style="padding-bottom: 0; padding-top: 12px;">{{form.chauffeur.label}}</label> </td>
@@ -16,19 +17,24 @@
           <td><span class="text-danger small">{{form.taxi.errors | striptags}}</span></td>
         </tr>
         <tr>
-          <td class=" text-left" style="width: 16.66%"> <label class="label" style="padding-bottom: 0; padding-top: 12px;">{{form.date_debut.label}}</label> </td>
-          <td style="width: 33%">{{form.date_debut}}</td>
-          <td><span class="text-danger small">{{form.date_debut.errors | striptags}}</span></td>
-        </tr>
-        <tr>
-          <td class="text-left" style="width: 16.66%;"> <label class="label" style="padding-bottom: 0; padding-top: 12px;">{{form.date_fin.label}}</label> </td>
-          <td style="width: 33%">{{form.date_fin}}</td>
-          <td><span class="text-danger small">{{form.date_fin.errors|striptags}}</span></td>
+          <td class=" text-left" style="width: 16.66%"> <label class="label" style="padding-bottom: 0; padding-top: 12px;">{{form.date_permission.label}}</label> </td>
+          <td style="width: 33%">{{form.date_permission}}</td>
+          <td><span class="text-danger small">{{form.date_permission.errors | striptags}}</span></td>
         </tr>
         <tr>
           <td class=" text-left" style="width: 16.66%"> <label class="label" style="padding-bottom: 0; padding-top: 12px;">{{form.destination.label}}</label> </td>
           <td style="width: 33%">{{form.destination}}</td>
           <td><span class="text-danger small">{{form.destination.errors | striptags}}</span></td>
+        </tr>
+        <tr>
+          <td class="text-left" style="width: 16.66%;"> <label class="label" style="padding-bottom: 0; padding-top: 12px;">{{form.duree_permission.label}}</label> </td>
+          <td style="width: 33%">{{form.duree_permission}}</td>
+          <td><span class="text-danger small">{{form.duree_permission.errors|striptags}}</span></td>
+        </tr>
+        <tr>
+          <td class="text-left" style="width: 16.66%;"> <label class="label" style="padding-bottom: 0; padding-top: 12px;">{{form.periode_permission.label}}</label> </td>
+          <td style="width: 33%">{{form.periode_permission}}</td>
+          <td><span class="text-danger small">{{form.periode_permission.errors|striptags}}</span></td>
         </tr>
     
       

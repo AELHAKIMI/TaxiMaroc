@@ -27,11 +27,12 @@ class PermissionForm(ModelForm):
         model = Permission
         fields = '__all__'
         widgets = {
-            'permission_id' : forms.TextInput(attrs={'class': 'form-control'}),          
-            'taxi'          : forms.TextInput(attrs={'class': 'form-control'}),
-            'date_debut'    : forms.DateInput(attrs={'class': 'datepicker form-control'}),
-            'date_fin'      : forms.DateInput(attrs={'class': 'datepicker form-control'}),
-            'destination'   : forms.TextInput(attrs={'class':'form-control'}),
+            'permission_id'     : forms.TextInput(attrs={'class': 'form-control'}),          
+            'taxi'              : forms.TextInput(attrs={'class': 'form-control'}),
+            'date_permission'   : forms.DateInput(attrs={'class': 'datepicker form-control'}),
+            'destination'       : forms.TextInput(attrs={'class': 'form-control'}),
+            'duree_permission'  : forms.TextInput(attrs={'class': 'form-control'}),
+            'periode_permission': forms.Select(attrs={'class':'form-control'}),
             }
     
 

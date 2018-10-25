@@ -16,11 +16,12 @@
             {% for permission in all_permissions  %}
                 <tr class="text-center"> 
                     <td >{{permission.permission_id}}</td>               
-                    <td>{{permission.chauffeur.nom_chauffeur}}</td>                
-                    <td>{{permission.taxi.numero_taxi}}</td>                
-                    <td>{{permission.taxi.type_taxi}}</td>                
-                    <td>{{ permission.date_debut | date:"d/m/Y" }} {{ permission.date_debut | time:"H:i" }}</td>  
-                    <td>{{ permission.date_fin | date:"d/m/Y" }} {{ permission.date_fin | time:"H:i" }}</td> 
+                    <td>{{permission.chauffeur.nom_chauffeur}}</td> 
+                    <td>{{permission.taxi}}</td>                
+                    <td>{{ permission.date_permission | date:"d/m/Y" }}</td>  
+                    <td>{{permission.destination | default_if_none:"-"}}</td>                
+                    <td>{{ permission.duree_permission | default_if_none:"-" }} </td> 
+                    <td>{{ permission.periode_permission  | default_if_none:"-" }} </td> 
                     <td> <a href="{% url 'permission-update-view' permission.pk %}"> <i class="fa fa-pencil fa-2x "></i> </a></td>
                     <td> <a href="{% url 'permission-delete-view' permission.pk %}"> <i class="fa fa-trash-o fa-2x  text-danger"></i> </a></td>             
                 </tr>
@@ -30,10 +31,11 @@
             <tr class="text-center"> 
                     <td>{{permission.permission_id}}</td>               
                     <td>{{permission.chauffeur.nom_chauffeur}}</td>                
-                    <td>{{permission.taxi.numero_taxi}}</td>                
-                    <td>{{permission.taxi.type_taxi}}</td>                
-                    <td>{{ permission.date_debut | date:"d/m/Y" }} {{ permission.date_debut | time:"H:i" }}</td>  
-                    <td>{{ permission.date_fin | date:"d/m/Y" }} {{ permission.date_fin | time:"H:i" }}</td>
+                    <td>{{permission.taxi}}</td>                              
+                    <td>{{ permission.date_permission | date:"d/m/Y" }}</td>  
+                    <td>{{permission.destination | default_if_none:"-"}}</td>                
+                    <td>{{ permission.duree_permission | default_if_none:"-" }} </td> 
+                    <td>{{ permission.periode_permission  | default_if_none:"-" }} </td> 
                     <td> <a href="{% url 'permission-update-view' permission.pk %}"> <i class="fa fa-pencil fa-2x "></i> </a></td>
                     <td> <a href="{% url 'permission-delete-view' permission.pk %}"> <i class="fa fa-trash-o fa-2x  text-danger"></i> </a></td>              
                 </tr>
