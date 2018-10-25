@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block body %}
+{% load widget_tweaks %}
+
+<form action="" method="POST" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    <table class="table table-sm table-model-form" style="font-size:11pt; font-weight: 600;">
+        {% for field in form %}
+        <tr class="border-0 border-bottom">
+            <td class="" style="width: 16.66%"> <label class="label" style="padding-bottom: 0; padding-top: 12px;">{{field.label}}</label>
+            </td>
+            <td style="width: 33%">{{field}}</td>
+            <td><span class="text-danger small">{{field.errors | striptags}}</span></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <ul class="list-inline  rounded-top rounded-bottom border bg-light" style="padding: 8px 20px 10px 100px;">
+        <li><input type="submit" class="btn ui-button list-group-item" value="Enregistrer"></li>
+    </ul>
+</form>
+{% endblock %}
+
+{% block scripts %}
+
+{{ form.media }}
+<script>
+    $(function () {
+
+        $(".datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "2010:2032",
+            dateFormat: 'dd/mm/yy'
+
+        });
+    });
+
+</script>
+
+{% endblock scripts %}

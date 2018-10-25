@@ -1,0 +1,48 @@
+{% extends '../layout.html'%}
+{% block body %}
+
+<div class="table-responsive table-bordered border-0">
+    <table id="tablePermission" class="table table-sm table-sorted data-sortable" >
+        <thead>
+            <tr >
+                {% for title in titles %}
+                <th class="  text-center bg-dark " style="color:#c0c8d6;">{{ title }}</th>
+                {%endfor%}
+                <th colspan="2"  class="text-center bg-light text-gray-dark" >Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if all_chauffeurs %}
+            {% for chauffeur in all_chauffeurs  %}
+                <tr class="text-center"> 
+                    <td >{{chauffeur.permis_chauffeur}}</td>               
+                    <td>{{chauffeur.nom_chauffeur}}</td> 
+                    <td>{{chauffeur.date_naissance | date:"d/m/Y"}}</td>                
+                    <td>{{ chauffeur.cin_chauffeur}}</td>  
+                    <td>{{chauffeur.visite_medicale | date:"d/m/Y"}}</td>                
+                    <td>{{ chauffeur.num_telephone}} </td>                    
+                    <td> <a href="{% url 'chauffeur-update-view' chauffeur.pk %}"> <i class="fa fa-pencil fa-2x "></i> </a></td>
+                    <td> <a href="{% url 'chauffeur-delete-view' chauffeur.pk %}"> <i class="fa fa-trash-o fa-2x  text-danger"></i> </a></td>             
+                </tr>
+            {% endfor %} 
+            {% endif %}
+            {% if chauffeur %}
+            <tr class="text-center"> 
+                <td >{{chauffeur.permis_chauffeur}}</td>               
+                <td>{{chauffeur.nom_chauffeur}}</td> 
+                <td>{{chauffeur.date_naissance | date:"d/m/Y"}}</td>                
+                <td>{{ chauffeur.cin_chauffeur}}</td>  
+                <td>{{chauffeur.visite_medicale | date:"d/m/Y"}}</td>                
+                <td>{{ chauffeur.num_telephone}} </td>                    
+                <td> <a href="{% url 'chauffeur-update-view' chauffeur.pk %}"> <i class="fa fa-pencil fa-2x "></i> </a></td>
+                <td> <a href="{% url 'chauffeur-delete-view' chauffeur.pk %}"> <i class="fa fa-trash-o fa-2x  text-danger"></i> </a></td>              
+                </tr>
+            {% endif %}
+                    
+            
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

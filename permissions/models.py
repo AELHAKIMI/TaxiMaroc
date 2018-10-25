@@ -75,6 +75,10 @@ class Chauffeur(models.Model):
 
     def selected_typePermis_labels(self):
         return [label for value,label in type_taxi_choice if value in self.type_permis]
+    
+    def get_absolute_url(self):
+        return reverse('chauffeur-detail-view', kwargs={'pk': self.pk})
+
 
 @python_2_unicode_compatible
 class Permission(models.Model):
