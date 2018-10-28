@@ -52,8 +52,16 @@ display: inline-block !important
     margin-top: 0px;
 }
 .select2-selection{
+    
     padding-top: 0;
 }
 .fa-2x, .fa {
     font-size: 14px;
+}
+
+#id_type_permis{
+    padding-left: 0;
+}
+#id_type_permis li{
+    list-style: none;
 }

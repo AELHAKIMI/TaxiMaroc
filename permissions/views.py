@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from dal import autocomplete
+from django.db.models import ProtectedError
 from .models import Chauffeur, Taxi, Permission
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from . import forms
 from django.utils.html import format_html
+from search_views.search import SearchListView
+from search_views.filters import BaseFilter
 
 # Create your views here.
 class IndexView(generic.ListView):
@@ -48,23 +51,52 @@ class ChauffeurDetailView(generic.DetailView):
             'titles' : chauffeur_titles,
         })
         return context
-
+    
 class ChauffeurCreateView(CreateView):
     model = Chauffeur
-    fields = '__all__'
+    form_class = forms.ChauffeurForm
     template_name = 'chauffeur/chauffeur_form.html'
 
 class ChauffeurUpdateView(UpdateView):
     model = Chauffeur
-    fields = '__all__'
+    form_class = forms.ChauffeurForm
     template_name = 'chauffeur/chauffeur_form.html'
 
 class ChauffeurDeleteView(DeleteView):
     model = Chauffeur
     success_url = reverse_lazy('index-view')
     template_name = 'chauffeur/confirm_delete.html'
+    def post(self, request, *args, **kwargs):
+        try:
+            return self.delete(request, *args, **kwargs)
+        except ProtectedError:
+            template_name = 'errors.html'
+            context ={
+                'message' : 'impossible de supprimer le chauffeur',
+                
+            }
+            return render(request, template_name,context)
+
+class ChauffeurFilter(BaseFilter):
+    search_fields = {
+        'permis' : {'operator' : '__exact', 'fields':['permis_chauffeur']},
+        'nom'    : {'operator' : '__icontains', 'fields':['nom_chauffeur']},
+        'sexe'   : {'operator' : '__in', 'fields':['sexe_chauffeur']},
+    }
+
+
+class ChauffeurSearchList(SearchListView):
+    model = Chauffeur
+    paginate_by = 30
+    
+    template_name = 'chauffeur/chauffeur_list.html'
+    form_class = forms.ChauffeurSearchForm
+    filter_class = ChauffeurFilter
+    
+        
 
 ############################# Taxi Views
+taxi_titles = ('Numero', 'Type', 'Matricule', 'Agrement', 'Marque','Modele', 'Assurance', 'Visite technique',)
 class TaxiAutoCompleteView(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Taxi.objects.all()
@@ -76,6 +108,43 @@ class TaxiAutoCompleteView(autocomplete.Select2QuerySetView):
     
     def get_selected_result_label(self, item):
         return str(item)
+class TaxiListView(generic.ListView):
+    template_name = 'taxi/taxis.html'
+    context_object_name = 'all_taxis'
+    def get_context_data(self, **kwargs):
+        context = super(TaxiListView,self).get_context_data(**kwargs)
+        context.update({
+            'titles' : taxi_titles,
+        })
+        return context
+    def get_queryset(self):
+        return Taxi.objects.all()
+    
+class TaxiDetailView(generic.DetailView):
+    template_name = 'taxi/taxi_form.html'
+    context_object_name = 'taxi'
+    def get_context_data(self , **kwargs):
+        context = super(TaxiDetailView, self).get_context_data(**kwargs)
+        context.update({
+            'titles' : taxi_titles,
+        })
+        return context
+    
+
+class TaxiCreateView(CreateView):
+    model = Taxi
+    template_name = 'taxi/taxi_form.html'
+    fields = '__all__'
+
+class TaxiUpdateView(UpdateView):
+    model = Taxi
+    template_name = 'taxi/taxi_form.html'
+    fields = '__all__'
+
+class TaxiDeleteView(DeleteView):
+    model = Taxi
+    success_url = reverse_lazy('index-view')
+    template_name = 'taxi/confirm_delete.html'
 
 ############################# Permission Views
 permission_titles = ('Numero', 'Chauffeur', 'Taxi', 'Date', 'Destination', 'Duree', 'Periode')
@@ -106,7 +175,7 @@ class PermissionDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(PermissionDetailView, self).get_context_data(**kwargs)        
         context.update({            
-            'permission_titles': permission_titles,                                  
+            'titles': permission_titles,                                  
         })
         return context
 

@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block body %}
+{% load widget_tweaks %}
+
+<form action="{% url 'chauffeur-list-view'%}" method="GET">{% csrf_token %}
+    <p>{{message}} </p>
+    <input type="submit" value="ok" />
+    
+</form>
+{%endblock%}

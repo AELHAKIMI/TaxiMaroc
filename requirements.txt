@@ -1,2 +1,3 @@
 pip install django-autocomplete-light
 pip django-multiselectfield
+pip install django-search-views

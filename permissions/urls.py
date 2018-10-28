@@ -27,5 +27,14 @@ urlpatterns = [
     url(r'^chauffeur/add/$', views.ChauffeurCreateView.as_view(), name='chauffeur-create-view'),
     url(r'^chauffeur/(?P<pk>[0-9]+)/change$', views.ChauffeurUpdateView.as_view(), name='chauffeur-update-view'),
     url(r'^chauffeur/(?P<pk>[0-9]+)/delete$', views.ChauffeurDeleteView.as_view(), name='chauffeur-delete-view'),
+    url(r'^chauffeur/search/$', views.ChauffeurSearchList.as_view(), name='chauffeur-search-view'),
+    ############################# Taxi Urls
+    url(r'^taxi/$', views.TaxiListView.as_view(), name='taxi-list-view'),
+    url(r'^taxi/(?P<pk>[0-9]+)/$', views.TaxiDetailView.as_view(), name='taxi-detail-view'),
+    url(r'^taxi/add/$', views.TaxiCreateView.as_view(), name='taxi-create-view'),
+    url(r'^taxi/(?P<pk>[0-9]+)/change$', views.TaxiUpdateView.as_view(), name='taxi-update-view'),
+    url(r'^taxi/(?P<pk>[0-9]+)/delete$',views.TaxiDeleteView.as_view(), name='taxi-delete-view'),
+
+
   
 ]

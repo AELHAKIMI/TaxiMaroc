@@ -20,7 +20,7 @@
                     <td>{{permission.taxi}}</td>                
                     <td>{{ permission.date_permission | date:"d/m/Y" }}</td>  
                     <td>{{permission.destination | default_if_none:"-"}}</td>                
-                    <td>{{ permission.duree_permission | default_if_none:"-" }} </td> 
+                    <td>{{ permission.duree_permission | default_if_none:"-" }} {% if permission.duree_permission %}  Jour(s) {% endif %} </td> 
                     <td>{{ permission.periode_permission  | default_if_none:"-" }} </td> 
                     <td> <a href="{% url 'permission-update-view' permission.pk %}"> <i class="fa fa-pencil fa-2x "></i> </a></td>
                     <td> <a href="{% url 'permission-delete-view' permission.pk %}"> <i class="fa fa-trash-o fa-2x  text-danger"></i> </a></td>             
@@ -34,7 +34,7 @@
                     <td>{{permission.taxi}}</td>                              
                     <td>{{ permission.date_permission | date:"d/m/Y" }}</td>  
                     <td>{{permission.destination | default_if_none:"-"}}</td>                
-                    <td>{{ permission.duree_permission | default_if_none:"-" }} </td> 
+                    <td>{{ permission.duree_permission | default_if_none:"-" }} {% if permission.duree_permission %}  Jour(s) {% endif %} </td> 
                     <td>{{ permission.periode_permission  | default_if_none:"-" }} </td> 
                     <td> <a href="{% url 'permission-update-view' permission.pk %}"> <i class="fa fa-pencil fa-2x "></i> </a></td>
                     <td> <a href="{% url 'permission-delete-view' permission.pk %}"> <i class="fa fa-trash-o fa-2x  text-danger"></i> </a></td>              

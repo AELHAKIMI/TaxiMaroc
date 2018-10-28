@@ -54,6 +54,9 @@ class Taxi(models.Model):
 
     def __str__(self):
         return self.numero_taxi + ' ' + ''.join(self.selected_typeTaxi_label())
+    
+    def get_absolute_url(self):
+        return reverse('taxi-detail-view', kwargs={'pk': self.pk})
 @python_2_unicode_compatible
 class Chauffeur(models.Model):
 
@@ -62,7 +65,7 @@ class Chauffeur(models.Model):
     permis_chauffeur    = models.CharField(max_length=32,unique=True, verbose_name=' Numero de Permis')
     type_permis         = MultiSelectField(choices=type_permis_choice,verbose_name='Type de permis')
     nom_chauffeur       = models.CharField(max_length=128, verbose_name='Nom')
-    sexe_chauffeur      = models.CharField(max_length=1, choices=Sexe_Choice, verbose_name='Sexe')
+    sexe_chauffeur      = models.CharField(max_length=1, choices=Sexe_Choice,default='M' ,verbose_name='Sexe')
     date_naissance      = models.DateField(verbose_name='Date de naissance')
     cin_chauffeur       = models.CharField(max_length=32,unique=True, verbose_name='CIN')
     visite_medicale     = models.DateField(verbose_name='Date de visite Medicale')
