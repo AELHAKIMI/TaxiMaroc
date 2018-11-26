@@ -36,9 +36,11 @@ class PermissionForm(ModelForm):
 
 ####################################### Chauffeur Forms
 class ChauffeurForm(ModelForm):
+    error_css_class = 'error'
     class Meta:
         model = Chauffeur
         fields = '__all__'
+        
         widgets = {
             'permis_chauffeur' : forms.TextInput(attrs={'class': 'form-control'}),
             # 'type_permis'       : forms.CheckboxInput(attrs={'class':''}),
@@ -52,35 +54,40 @@ class ChauffeurForm(ModelForm):
         }
     
 class ChauffeurSearchForm(forms.Form):
+    error_css_class = 'error'
     permis = forms.CharField(
-        required = False,
+        required = True,
         label    = 'Numero de Permis',
-        widget   = forms.TextInput(attrs={'class': 'form-control',})
+        widget   = forms.TextInput(attrs={'class': 'form-control',}),
+        
+
     )
-    nom     = forms.CharField(
+    nom          = forms.CharField(
         required = False,
         label    = 'Nom',
         widget   = forms.TextInput(attrs={'class': 'form-control',})
 
     )
-    type_permis = forms.MultipleChoiceField(
-        choices = (
+    type_permis  = forms.ChoiceField(
+        choices  = (
+            ('',  '----------',),
             ('1', 'Grand Taxi',),
             ('2', 'Petit Taxi',), 
         ),
         required= False,
         label   = 'Type de permis',
-        widget  = forms.CheckboxSelectMultiple(attrs={'class': ''})
+        widget  = forms.Select(attrs={'class': 'form-control'})
     )
-    sexe        = forms.MultipleChoiceField(
+    sexe        = forms.ChoiceField(
         choices = (
+            ('',  '--------',),
             ('F', 'FEMININ',),
             ('M', 'MASCULIN',),
             ('I', 'INDETERMINE',),
         ),
         required= False,
         label   = 'Sexe',
-        widget  = forms.CheckboxSelectMultiple(attrs={'class': ''})
+        widget  = forms.Select(attrs={'class': 'form-control'})
     )
     
 
@@ -108,5 +115,66 @@ class ChauffeurSearchForm(forms.Form):
         widget      = forms.DateInput(attrs={'class': 'form-control',})
 
     )
+    cin = forms.CharField(
+        required = False,
+        label   = 'CIN',
+        widget  = forms.TextInput(attrs={'class': 'form-control',}),
+    )
+
+    visite_medicale_min = forms.DateField(
+        input_formats=[
+            '%d%m%Y',
+            '%d/%m/%Y',
+            '%d%m%y',
+            '%d/%m/%y'
+        ],
+        required = False,
+        label    = 'Visite medicale',
+        widget   = forms.DateInput(attrs={'class': 'form-control',})
+
+    )
+    visite_medicale_max = forms.DateField(
+        input_formats=[
+            '%d%m%Y',
+            '%d/%m/%Y',
+            '%d%m%y',
+            '%d/%m/%y'
+        ],
+        required    = False,
+        label       = "Jusqu' ",
+        widget      = forms.DateInput(attrs={'class': 'form-control',})
+
+    )
+
+    num_telephone = forms.CharField(
+        required = False,
+        label    = 'Telephone',
+        widget   = forms.TextInput(attrs={'class': 'form-control',})
+    )
+    isActive    = forms.BooleanField(
+        required= False,
+        label   = 'Active',
+        
+        widget  = forms.CheckboxInput(attrs={'class': ''}, check_test=None) 
+    )
     def clean_sexe(self):
         return self.cleaned_data['sexe']
+
+
+############################################# Taxi Forms
+
+class TaxiForm(ModelForm):
+    class Meta:
+        model = Taxi
+        fields = '__all__'
+        widgets = {
+            'numero_taxi' : forms.TextInput(attrs={'class': 'form-control',}),
+            'type_taxi'   : forms.Select(attrs={'class': 'form-control',}),
+            'matricule' : forms.TextInput(attrs={'class': 'form-control',}),
+            'agrement' : forms.TextInput(attrs={'class': 'form-control',}),
+            'Marque' : forms.TextInput(attrs={'class': 'form-control',}),
+            'modele' : forms.TextInput(attrs={'class': 'form-control',}),
+            'assurance' : forms.DateInput(attrs={'class': 'form-control',}),
+            'visite_technique': forms.DateInput(attrs={'class': 'form-control',}),
+
+        }

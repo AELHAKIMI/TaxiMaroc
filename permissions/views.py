@@ -79,9 +79,15 @@ class ChauffeurDeleteView(DeleteView):
 
 class ChauffeurFilter(BaseFilter):
     search_fields = {
-        'permis' : {'operator' : '__exact', 'fields':['permis_chauffeur']},
+        'permis' : {'operator' : '__iexact', 'fields':['permis_chauffeur']},
+        'cin' : {'operator' : '__iexact', 'fields':['cin_chauffeur']},
         'nom'    : {'operator' : '__icontains', 'fields':['nom_chauffeur']},
         'sexe'   : {'operator' : '__in', 'fields':['sexe_chauffeur']},
+        'type_permis': {'operator' : '__contains', 'fields':['type_permis']},
+        'date_naissance_min': {'operator' : '__gte', 'fields':['date_naissance']},
+        'date_naissance_max': {'operator' : '__lte', 'fields':['date_naissance']},
+        'visite_medicale_min': {'operator' : '__gte', 'fields':['visite_medicale']},
+        'visite_medicale_max': {'operator' : '__lte', 'fields':['visite_medicale']},
     }
 
 
@@ -92,6 +98,7 @@ class ChauffeurSearchList(SearchListView):
     template_name = 'chauffeur/chauffeur_list.html'
     form_class = forms.ChauffeurSearchForm
     filter_class = ChauffeurFilter
+    paginate_by =2
     
         
 
@@ -121,6 +128,7 @@ class TaxiListView(generic.ListView):
         return Taxi.objects.all()
     
 class TaxiDetailView(generic.DetailView):
+    model = Taxi
     template_name = 'taxi/taxi_form.html'
     context_object_name = 'taxi'
     def get_context_data(self , **kwargs):
@@ -134,7 +142,7 @@ class TaxiDetailView(generic.DetailView):
 class TaxiCreateView(CreateView):
     model = Taxi
     template_name = 'taxi/taxi_form.html'
-    fields = '__all__'
+    form_class = forms.TaxiForm
 
 class TaxiUpdateView(UpdateView):
     model = Taxi

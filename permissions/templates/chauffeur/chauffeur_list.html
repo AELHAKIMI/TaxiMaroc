@@ -1,10 +1,72 @@
 {% extends '../layout.html'%}
 {% block body %}
 
-<form class="form-inline" action="" method="GET">
-    {{ form }}
-    <button class="btn" type="submit">Rechercher</button>
+<form class="" action="" method="GET" novalidate>
+    <fieldset>
+        <table>
+            <tr>
+                <td>{{form.permis.label_tag}}</td>
+                <td>{{form.permis}}</td>
+                <td>{{form.permis.errors}}</td>
+            </tr>
+    
+            <tr>
+                <td>{{form.nom.label_tag}}</td>
+                <td>{{form.nom}}</td>
+                <td>{{form.nom.errors}}</td>
+
+                <td>{{form.cin.label_tag}}</td>
+                <td>{{form.cin}}</td>
+                <td>{{form.cin.errors}}</td>
+            </tr>
+    
+            <tr>
+                <td>{{form.sexe.label_tag}}</td>
+                <td>{{form.sexe}}</td>
+                <td>{{form.sexe.errors}}</td>
+
+                <td>{{form.type_permis.label_tag}}</td>
+                <td>{{form.type_permis}}</td>
+                <td>{{form.type_permis.errors}}</td>
+
+            </tr>
+            <tr>
+                <td>{{form.visite_medicale_min.label_tag}}</td>
+                <td>{{form.visite_medicale_min}}</td>
+                <td>{{form.visite_medicale_min.errors}}</td>
+
+                <td>{{form.visite_medicale_max.label_tag}}</td>
+                <td>{{form.visite_medicale_max}}</td>
+                <td>{{form.visite_medicale_max.errors}}</td>
+    
+            </tr>
+            <tr>
+                <td>{{form.date_naissance_min.label_tag}}</td>
+                <td>{{form.date_naissance_min}}</td>
+                <td>{{form.date_naissance_min.errors}}</td>
+
+                <td>{{form.date_naissance_max.label_tag}}</td>
+                <td>{{form.date_naissance_max}}</td>
+                <td>{{form.date_naissance_max.errors}}</td>
+    
+            </tr>
+            <tr>
+                    <td>{{form.num_telephone.label_tag}}</td>
+                    <td>{{form.num_telephone}}</td>
+                    <td>{{form.num_telephone.errors}}</td>
+    
+                    
+                </tr>
+                <tr>
+                    <td>{{form.isActive.label_tag}}</td>
+                    <td>{{form.isActive}}</td>
+                    <td>{{form.isActive.errors}}</td>
+                </tr>
+            </table>
     </fieldset>
+    <ul class="list-inline  rounded-top rounded-bottom border bg-light" style="padding: 8px 20px 10px 100px;">
+        <li><input type="submit" class="btn ui-button list-group-item" value="Rechercher"></li>
+    </ul>
 </form>
 <div class="table-responsive table-bordered border-0">
     <table id="tablePermission" class="table table-sm table-sorted data-sortable" >

@@ -22,7 +22,7 @@
                     <td>{{taxi.Marque}}</td>  
                     <td>{{taxi.modele}}</td>  
                     <td>{{taxi.assurance | date:"d/m/Y"}}</td>                
-                    <td>{{taxi.vite_technique| date:"d/m/Y"}}</td> 
+                    <td>{{taxi.visite_technique| date:"d/m/Y"}}</td> 
                     <td> <a href="{% url 'taxi-update-view' taxi.pk %}"> <i class="fa fa-pencil fa-2x "></i> </a></td>
                     <td> <a href="{% url 'taxi-delete-view' taxi.pk %}"> <i class="fa fa-trash-o fa-2x  text-danger"></i> </a></td>             
                 </tr>
@@ -37,7 +37,7 @@
                 <td>{{taxi.Marque}}</td>  
                 <td>{{taxi.modele}}</td>  
                 <td>{{taxi.assurance | date:"d/m/Y"}}</td>                
-                <td>{{taxi.vite_technique| date:"d/m/Y"}}</td> 
+                <td>{{taxi.visite_technique| date:"d/m/Y"}}</td> 
                 <td> <a href="{% url 'taxi-update-view' taxi.pk %}"> <i class="fa fa-pencil fa-2x "></i> </a></td>
                 <td> <a href="{% url 'taxi-delete-view' taxi.pk %}"> <i class="fa fa-trash-o fa-2x  text-danger"></i> </a></td>              
                 </tr>

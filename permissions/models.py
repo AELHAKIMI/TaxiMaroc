@@ -35,12 +35,12 @@ class Taxi(models.Model):
     
     numero_taxi     = models.CharField(max_length=32, verbose_name='Numero Taxi')
     type_taxi       = models.CharField(max_length=1, choices = type_taxi_choice, verbose_name='Type Taxi')
-    matricule       = models.CharField(max_length=32, verbose_name='Matricule')
-    agrement        = models.CharField(max_length=32, verbose_name='Agrement')
+    matricule       = models.CharField(max_length=32, verbose_name='Matricule', unique =True)
+    agrement        = models.CharField(max_length=32, verbose_name='Agrement', unique =True)
     Marque          = models.CharField(max_length=128, verbose_name='Marque de vehicule')
     modele          = models.CharField(max_length=128, verbose_name='Modele de vehicule')
     assurance       = models.DateField(verbose_name="Date d'assurance")
-    vite_technique  = models.DateField(verbose_name='Date de Visite technique')
+    visite_technique  = models.DateField(verbose_name='Date de Visite technique')
     isActive        = models.BooleanField(verbose_name='Activé', default=True)
     isPrivate       = models.BooleanField(verbose_name='Privé', default=False)
 
